@@ -1,0 +1,28 @@
+package com.leetcode100;
+
+/**
+ * @author zack
+ * @create 2019-11-06-0:20
+ */
+
+
+/**
+ * Definition for a binary tree node.
+ */
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        if (p == null && q != null) return false;
+        return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+}
