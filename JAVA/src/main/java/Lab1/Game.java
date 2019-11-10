@@ -7,7 +7,6 @@ import java.util.Scanner;
  * @create 2019-11-11-4:22
  */
 public class Game {
-    static int mark = 0;
 
     public static void main(String[] args) {
         System.out.print("Please type your name: ");
