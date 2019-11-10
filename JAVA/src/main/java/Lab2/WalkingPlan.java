@@ -25,7 +25,7 @@ public class WalkingPlan {
             sum += distances[x];
         }
         System.out.println("Total number of meters walked = " + sum);
-        System.out.println("Average number of meters walked per day = " + sum / DAYS);
+        System.out.println("Average number of meters walked per day = " + Math.round(sum / DAYS));
 
     }
 
