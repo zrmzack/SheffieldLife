@@ -1,7 +1,6 @@
 package Lab1;
 
 import java.util.Scanner;
-
 /**
  * @author zack
  * @create 2019-11-11-4:22
