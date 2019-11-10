@@ -11,9 +11,10 @@ public class Question {
     private int answer;
     private int x;
     private int y;
+    //record the mark people get
     private int mark = 0;
 
-
+    //judge '+' || '-'
     private char judge() {
         int x = new Random().nextInt(2);
         if (x == 0) {
@@ -23,6 +24,7 @@ public class Question {
         }
     }
 
+    //generate question
     private void generate() {
         Random random = new Random();
         x = random.nextInt(20);
@@ -30,6 +32,7 @@ public class Question {
         if (judge() == '-') {
             if (x >= y) {
                 System.out.println(x + "-" + y);
+                //set answers
                 this.setAnswer(x - y);
             } else {
                 System.out.println(y + "-" + x);
@@ -41,6 +44,7 @@ public class Question {
         }
     }
 
+    //judge the answers right or wrong
     private boolean judgeanswer(int userInput) {
         if (this.getAnswer() == userInput) {
             System.out.println("Correct, well done");
@@ -59,10 +63,11 @@ public class Question {
         this.answer = answer;
     }
 
+    //get all those questions
     public int getallquestions() {
 
         for (int x = 0; x < 10; x++) {
-            System.out.print("Question " + (x+1) + ": ");
+            System.out.print("Question " + (x + 1) + ": ");
             generate();
             System.out.print("Answer?");
             int userinput = new Scanner(System.in).nextInt();
