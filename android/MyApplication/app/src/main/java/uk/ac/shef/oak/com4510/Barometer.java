@@ -26,18 +26,18 @@ public class Barometer {
     private SensorManager mSensorManager;
     private Sensor mBarometerSensor;
     private long timePhoneWasLastRebooted = 0;
-    private long BAROMETER_READING_FREQUENCY= 30000;
+    private long BAROMETER_READING_FREQUENCY = 10000;
     private long lastReportTime = 0;
     private boolean started;
     private Accelerometer accelerometer;
     /**
      * this is used to stop the barometer if we have not seen any movement in the last 20 seconds
      */
-    private static final long STOPPING_THRESHOLD = (long)20000;
+    private static final long STOPPING_THRESHOLD = (long) 20000;
 
 
     public Barometer(Context context) {
-        // http://androidforums.com/threads/how-to-get-time-of-last-system-boot.548661/
+
         timePhoneWasLastRebooted = System.currentTimeMillis() - SystemClock.elapsedRealtime();
 
         mSamplingRateNano = (long) (BAROMETER_READING_FREQUENCY) * 1000000;
@@ -68,15 +68,17 @@ public class Barometer {
                         long actualTimeInMseconds = timePhoneWasLastRebooted + (long) (event.timestamp / 1000000.0);
                         float pressureValue = event.values[0];
                         int accuracy = event.accuracy;
-
+                        System.out.println(pressureValue + System.currentTimeMillis());
                         Log.i(TAG, Utilities.mSecsToString(actualTimeInMseconds) + ": current barometric pressure: " + pressureValue + "with accuract: " + accuracy);
-                        lastReportTime = event.timestamp;
+                        System.out.println("presure"+pressureValue);
+                        //lastReportTime = event.timestamp;
                         // if we have not see any movement on the side of the accelerometer, let's stop
-                        long timeLag= actualTimeInMseconds-accelerometer.getLastReportTime();
-                        if (timeLag> STOPPING_THRESHOLD)
-                            stopBarometer();
+//                        long timeLag = actualTimeInMseconds - accelerometer.getLastReportTime();
+//                        if (timeLag > STOPPING_THRESHOLD)
+//                            stopBarometer();
                     }
                 }
+
                 @Override
                 public void onAccuracyChanged(Sensor sensor, int accuracy) {
                 }
@@ -88,6 +90,7 @@ public class Barometer {
 
     /**
      * it returns true if the sensor is available
+     *
      * @return
      */
     public boolean standardPressureSensorAvailable() {
@@ -96,10 +99,11 @@ public class Barometer {
 
     /**
      * it starts the pressure monitoring
+     *
      * @param accelerometer
      */
     public void startSensingPressure(Accelerometer accelerometer) {
-        this.accelerometer= accelerometer;
+        this.accelerometer = accelerometer;
         // if the sensor is null,then mSensorManager is null and we get a crash
         if (standardPressureSensorAvailable()) {
             Log.d("Standard Barometer", "starting listener");
@@ -132,6 +136,7 @@ public class Barometer {
 
     /**
      * returns true if the barometer is currently working
+     *
      * @return
      */
 
