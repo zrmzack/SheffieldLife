@@ -162,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onInfoWindowClick(Marker marker) {
         Toast.makeText(this, "Info  Windows", Toast.LENGTH_SHORT).show();
-        System.out.println("funck");
+        System.out.println("fuck");
     }
 }
 
