@@ -5,13 +5,19 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, SensorEventListener {
     private GoogleMap mMap;
     private static final int ACCESS_FINE_LOCATION = 123;
     private LocationRequest mLocationRequest;
@@ -46,6 +52,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location mCurrentLocation;
     private String mLastUpdateTime;
     private List<LatLng> latLngs = new ArrayList<LatLng>();
+    private Barometer barometer;
+    private Accelerometer accelerometer;
+    private TextView textView;
+    private SensorManager sensorManager;
+    private Sensor sensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+        barometer = new Barometer(this);
+        accelerometer = new Accelerometer(this, barometer);
         mButtonStart = (Button) findViewById(R.id.button_start);
         mButtonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +126,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected void onResume() {
         super.onResume();
+        accelerometer.startAccelerometerRecording();
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
@@ -118,6 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         startLocationUpdates();
+        sensorManager.registerListener(this, sensor, sensorManager.SENSOR_DELAY_GAME);
     }
 
     Polyline polyline;
@@ -162,7 +179,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onInfoWindowClick(Marker marker) {
         Toast.makeText(this, "Info  Windows", Toast.LENGTH_SHORT).show();
-        System.out.println("funck");
+        System.out.println("fuck");
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        accelerometer.stopAccelerometer();
+        sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float[] values = event.values;
+        float temp = values[0];
+        System.out.println("my temp" + temp);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }
 
