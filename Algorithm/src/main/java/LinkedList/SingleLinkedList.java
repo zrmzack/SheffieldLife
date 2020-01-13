@@ -1,5 +1,7 @@
 package LinkedList;
 
+import java.util.Stack;
+
 /**
  * @author zack
  * @create 2020-01-09-1:53
@@ -11,15 +13,33 @@ public class SingleLinkedList {
         HeroNode heroNode3 = new HeroNode(3, "吴用", "智多星");
         HeroNode heroNode4 = new HeroNode(4, "林冲", "豹子头");
         SingleLinkedListTest singleLinkedListTest = new SingleLinkedListTest();
+
         singleLinkedListTest.add(heroNode1);
         singleLinkedListTest.add(heroNode2);
         singleLinkedListTest.add(heroNode3);
         singleLinkedListTest.add(heroNode4);
-        singleLinkedListTest.list();
-        singleLinkedListTest.del(1);
-        singleLinkedListTest.list();
 
-        System.out.println("有效节点的个数" + getLength(singleLinkedListTest.getHead()));
+        HeroNode heroNode5 = new HeroNode(5, "松江", "及时雨");
+        HeroNode heroNode6 = new HeroNode(7, "松江", "玉麒麟");
+        HeroNode heroNode7 = new HeroNode(6, "吴用", "智多星");
+        HeroNode heroNode8 = new HeroNode(8, "林冲", "豹子头");
+        SingleLinkedListTest singleLinkedListTest1 = new SingleLinkedListTest();
+
+        singleLinkedListTest1.add(heroNode5);
+        singleLinkedListTest1.add(heroNode6);
+        singleLinkedListTest1.add(heroNode7);
+        singleLinkedListTest1.add(heroNode8);
+
+       // System.out.println(mergeTwoList(singleLinkedListTest.getHead(), singleLinkedListTest1.getHead()));
+
+//        singleLinkedListTest.list();
+//        singleLinkedListTest.del(1);
+        //singleLinkedListTest.list();
+
+        //System.out.println("有效节点的个数" + getLength(singleLinkedListTest.getHead()));
+
+
+        //reversePrint(singleLinkedListTest.getHead());
     }
 
     //获取到单链表的节点个数
@@ -69,11 +89,63 @@ public class SingleLinkedList {
         while (temp != null) {
             next = temp.next;//保存当前节点的下一个节点
             temp.next = reverseHead.next;//把temp的下一个jie'd节点指向新的链表的最前端
-            temp=next;//temp 往后移动
+            reverseHead.next = temp;//把反转的链表指向原先链表指针的后一个
+            temp = next;//temp 往后移动
         }
-        head.next=reverseHead.next;
+        head.next = reverseHead.next;
     }
+
+    /*
+     *倒叙打印链表
+     *1. 可以把链表进行反转后打印（但是这样会破坏掉原来的结构）
+     *
+     * 2.可以通过栈来实现链表的反转打印
+     * */
+
+    public static void reversePrint(HeroNode head) {
+        if (head.next == null) {
+            System.out.println("链表是空的");
+        }
+        HeroNode temp = head.next;
+        Stack<HeroNode> stack = new Stack<>();
+        while (temp != null) {
+            stack.add(temp);
+            temp = temp.next;
+        }
+        while (stack.size() > 0) {
+            System.out.println(stack.pop());
+        }
+    }
+//合并两个有序单链表
+//    public static HeroNode mergeTwoList(HeroNode head1, HeroNode head2) {
+//        if (head1.next == null && head2.next == null) {
+//            System.out.println("没什么好排序的");
+//            return null;
+//        }
+//        if (head1.next == null) {
+//            return head2;
+//        }
+//        if (head2.next == null) {
+//            return head1;
+//        }
+//        HeroNode newNodeList = new HeroNode(0, "", "");
+//        HeroNode temp1 = head1.next;
+//        HeroNode temp2 = head2.next;
+//        if (temp1.no > temp2.no) {
+//            newNodeList= temp2;
+//            newNodeList = mergeTwoList(head1, temp2.next);
+//        } else {
+//            newNodeList.next = temp1;
+//            newNodeList.next = mergeTwoList(temp1.next, temp2);
+//        }
+//        return newNodeList;
+//
+//
+//    }
+
+
 }
+
 
 class HeroNode {
     public int no;
