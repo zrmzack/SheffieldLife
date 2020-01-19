@@ -6,11 +6,13 @@ package sparsearray;
  */
 public class SparseArray {
     public static void main(String[] args) {
+        //初始化一个二维数组
         int cheess[][] = new int[11][11];
         cheess[1][2] = 1;
         cheess[2][3] = 2;
         for (int[] row : cheess) {
             for (int data : row) {
+                //打印这个数组
                 System.out.print(data + " ");
             }
             System.out.println();
@@ -19,6 +21,7 @@ public class SparseArray {
         int sum = 0;
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
+                //统计有几个不为0的二维数组个数
                 if (cheess[i][j] != 0) {
                     sum++;
                 }

@@ -6,7 +6,22 @@ package LinkedList;
  */
 public class DoubleLinkedList {
     public static void main(String[] args) {
-
+        DoubleLinkedListTest doubleLinkedListTest = new DoubleLinkedListTest();
+        HeroNodeDouble heroNodeDouble1 = new HeroNodeDouble(1, "zrm1", "zack1");
+        HeroNodeDouble heroNodeDouble2 = new HeroNodeDouble(2, "zrm2", "zack2");
+        HeroNodeDouble heroNodeDouble3 = new HeroNodeDouble(6, "zrm3", "zack3");
+        HeroNodeDouble heroNodeDouble4 = new HeroNodeDouble(4, "zrm4", "zack4");
+        doubleLinkedListTest.add(heroNodeDouble1);
+        doubleLinkedListTest.add(heroNodeDouble2);
+        doubleLinkedListTest.add(heroNodeDouble3);
+        doubleLinkedListTest.add(heroNodeDouble4);
+        //doubleLinkedListTest.PrintDoubeLinkList();
+//        doubleLinkedListTest.delete(3);
+//        doubleLinkedListTest.PrintDoubeLinkList();
+        //doubleLinkedListTest.updateNode(new HeroNodeDouble(3, "zyn", "zrm"));
+        //doubleLinkedListTest.PrintDoubeLinkList();
+        doubleLinkedListTest.addByNumber(new HeroNodeDouble(3, "zyn5", "zrm"));
+        doubleLinkedListTest.PrintDoubeLinkList();
     }
 
 }
@@ -43,7 +58,7 @@ class DoubleLinkedListTest {
      *循环双链表增加
      * */
     public void add(HeroNodeDouble heroNodeDouble) {
-        HeroNodeDouble temp = null;
+        HeroNodeDouble temp = head;
         while (true) {
             if (temp.next == null) {
                 break;
@@ -115,6 +130,37 @@ class DoubleLinkedListTest {
             System.out.println("没东西给你弄");
         }
 
+    }
+
+    public void addByNumber(HeroNodeDouble heroNodeDouble) {
+        boolean flag = false;
+        if (head.next == null) {
+            System.out.println("空的");
+            return;
+        }
+        HeroNodeDouble temp = head;
+        while (true) {
+            if (temp.next == null) {
+                System.out.println("空了");
+                break;
+            }
+            if (temp.next.no > heroNodeDouble.no) {
+                break;
+            } else if (temp.next.no == heroNodeDouble.no) {
+                flag = true;
+                System.out.println("这个点有了");
+                break;
+            }
+            temp = temp.next;
+        }
+        if (flag) {
+            System.out.println("这个点有了");
+            return;
+        } else {
+            heroNodeDouble.next = temp.next;
+            temp.next = heroNodeDouble;
+           // heroNodeDouble.pre=temp;
+        }
     }
 
 

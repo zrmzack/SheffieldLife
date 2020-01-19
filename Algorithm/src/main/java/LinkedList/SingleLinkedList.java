@@ -83,7 +83,7 @@ public class SingleLinkedList {
         if (head.next == null || head.next.next == null) {
             return;
         }
-        HeroNode temp = head.next;//定义temp只想正真数据的第一个
+        HeroNode temp = head.next;//定义temp指向真数据的第一个
         HeroNode next = null;//指向temp节点的后一个
         HeroNode reverseHead = new HeroNode(0, "", "");
         while (temp != null) {
