@@ -6,6 +6,13 @@ package Stack;
  */
 public class ArrayStackTest {
     public static void main(String[] args) {
+        ArrayStack arrayStack = new ArrayStack(10);
+        arrayStack.push(20);
+        arrayStack.push(10);
+        arrayStack.push(90);
+        arrayStack.showStack();
+        arrayStack.pop();
+        arrayStack.showStack();
 
     }
 }
@@ -34,7 +41,28 @@ class ArrayStack {
             return;
         }
         top++;
-        stack[top]=value;
+        stack[top] = value;
     }
+
+    public int pop() {
+        //判断是否空
+        if (isEmpty()) {
+            throw new RuntimeException("空的栈");
+        }
+        int tempValue = stack[top];
+        top--;
+        return tempValue;
+    }
+
+    public void showStack() {
+        if (isEmpty()) {
+            System.out.println("栈是空的");
+        }
+
+        for (int i = top; i >= 0; i--) {
+            System.out.println(stack[i]);
+        }
+    }
+
 
 }
