@@ -25,7 +25,7 @@ public class leetcode160 {
  * }
  * }
  */
-public class Solution {
+ class Solution12 {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) {
             return null;
