@@ -6,6 +6,6 @@ import java.util.ArrayList;
  */
 public class RankAllString {
     public ArrayList<String> Permutation(String str) {
-
+        return null;
     }
 }
