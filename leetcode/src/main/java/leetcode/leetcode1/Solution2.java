@@ -24,7 +24,7 @@ public class Solution2 {
 class test {
     public int[] twoSum(int[] nums, int target) {
         int temp[] = new int[2];
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int x = 0; x < nums.length; x++) {
             if (map.containsKey(target - nums[x])) {
                 temp[0] = x;
